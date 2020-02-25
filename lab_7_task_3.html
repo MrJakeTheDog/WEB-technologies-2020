@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+</head>
+<body>
+  <button>Sry :C</button>
+ 
+<script src="https://unpkg.com/axios/dist/axios.min.js"> 
+//https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js
+
+const axios = require('axios');
+const url = 'https://api.spotify.com/v1/artists/ID'
+
+axios({
+  method: 'get',
+  url: 'https://api.spotify.com/v1/artists/ID',
+  responseType: 'stream'
+})
+  .then(function (response) {
+    //response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
+    console.log('HZ');
+  });
+
+axios.get('https://jsonplaceholder.typicode.com/posts/1')
+  .then(response => console.log(response));
+
+axios.get(url)
+  .then(response => console.log(response));
+
+axios
+  .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+  .then(response => (this.info = response.data.bpi));
+
+axios({
+  method: 'get',
+  url: 'https://jsonplaceholder.typicode.com/posts',
+})
+  .then(function (response) {
+    data1 = response.data
+    var rows_count = data1.length;
+    console.log(rows_count)
+    var columns_count = 4;
+    var data_index = 0;
+    var i,j;
+    var tbl = document.createElement('table')
+    document.body.appendChild(tbl);
+    for (i=0; i<rows_count; i++) {
+        var rdr = document.createElement('tr')
+        tbl.appendChild(rdr);
+            var com = document.createElement('td')
+            var text = document.createTextNode(data1[i].userId)
+            com.appendChild(text)
+            rdr.appendChild(com);
+
+            var com = document.createElement('td')
+            var text = document.createTextNode(data1[i].id)
+            com.appendChild(text)
+            rdr.appendChild(com);
+
+            var com = document.createElement('td')
+            var text = document.createTextNode(data1[i].title)
+            com.appendChild(text)
+            rdr.appendChild(com);
+
+            var com = document.createElement('td')
+            var text = document.createTextNode(data1[i].body)
+            com.appendChild(text)
+            rdr.appendChild(com);
+            }
+    console.log(data1)
+  });
+
+
+/*var status = request.status;
+var text = request.responseText;
+
+if(status==200) {
+    //document.body.appendChild(document.createTextNode("Текст відповіді: " + text)); 
+ 
+        //}
+
+    } else {
+    document.body.appendChild(document.createTextNode(request.statusText));
+    }*/
+
+</script>
+</body>
+</html>

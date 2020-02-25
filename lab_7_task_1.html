@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+</head>
+<body>
+ 
+<script>
+
+/*[{
+        "ccy": "USD",
+        "base_ccy": "UAH",
+        "buy": "24.20000",
+        "sale": "24.51000"
+    },
+    {
+        "ccy": "EUR",
+        "base_ccy": "UAH",
+        "buy": "26.10000",
+        "sale": "26.60000"
+    },
+    {
+        "ccy": "RUR",
+        "base_ccy": "UAH",
+        "buy": "0.35000",
+        "sale": "0.38500"
+    },
+    {
+        "ccy": "BTC",
+        "base_ccy": "USD",
+        "buy": "9132.1695",
+        "sale": "10093.4505"
+    }
+]*/
+
+var request = new XMLHttpRequest();
+request.open("GET", "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5", false);
+request.send();
+
+var status = request.status;
+var text = request.responseText;
+
+if(status==200) {
+    //document.body.appendChild(document.createTextNode("Текст відповіді: " + text)); 
+    var jsonResponse = JSON.parse(text);
+    console.log(jsonResponse);
+    var rows_count = jsonResponse.length;
+    console.log(rows_count)
+    var columns_count = 4;
+    var data_index = 0;
+    var i,j;
+    var tbl = document.createElement('table')
+    document.body.appendChild(tbl);
+    for (i=0; i<rows_count; i++) {
+        var rdr = document.createElement('td')
+        tbl.appendChild(rdr);
+            var com = document.createElement('tr')
+            var text = document.createTextNode(jsonResponse[i].ccy)
+            com.appendChild(text)
+            rdr.appendChild(com);
+
+            var com = document.createElement('tr')
+            var text = document.createTextNode(jsonResponse[i].base_ccy)
+            com.appendChild(text)
+            rdr.appendChild(com);
+
+            var com = document.createElement('tr')
+            var text = document.createTextNode(jsonResponse[i].buy)
+            com.appendChild(text)
+            rdr.appendChild(com);
+
+            var com = document.createElement('tr')
+            var text = document.createTextNode(jsonResponse[i].sale)
+            com.appendChild(text)
+            rdr.appendChild(com);
+            }
+        //}
+
+    } else {
+    document.body.appendChild(document.createTextNode(request.statusText));
+    }
+
+</script>
+</body>
+</html>

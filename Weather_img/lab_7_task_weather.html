@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <style>
+    </style>
+</head>
+<body>
+ 
+<script>
+fetch('https://api.openweathermap.org/data/2.5/forecast?q=Smila&appid=d81029a0acf74508d950b9c4307ce255&lang=ua')
+  .then(response => response.json())
+  .then(data => {
+    var rows_count = data.list.length;
+    var columns_count = 5;
+    var i,j;
+    var tbl = document.createElement('table')
+    var src_gif = ''
+    document.body.appendChild(tbl);
+    tbl.setAttribute("style", "color:#050140; border: 1px solid blue; margin: auto; background:#cbe8ff; text-aling: centr;");
+    var rdr = document.createElement('td')
+    var rdr1 = document.createElement('tr')
+
+    var city = document.createElement('td');
+    tbl.style.alignContent = 'center'
+    var text = document.createTextNode(data.city.name);
+    city.style.fontSize = '30px'
+    city.appendChild(text)
+    city.setAttribute("style", "color:#050140; margin: auto; font-size:9;");
+    tbl.appendChild(rdr1);
+    tbl.appendChild(rdr);
+    var tmp = document.createElement('tr')
+    var text = document.createTextNode('Дата:  ')
+    tmp.appendChild(text)
+    var dt = document.createElement('tr')
+    text = document.createTextNode('Температура:  ')
+    var src_img = 'logo1.png'
+    
+    var img = document.createElement('img')
+    img.src = src_img
+  
+    dt.appendChild(text)
+
+    rdr1.appendChild(city);
+    rdr.appendChild(img)
+    rdr.appendChild(tmp);
+    rdr.appendChild(dt);
+
+    if (data.list[0].weather[0].main == "Clouds") {
+        src_gif = 'clouds.gif'
+      } else if (data.list[0].weather[0].main == "Rain") {
+        src_gif = 'rain.gif'
+      } else if (data.list[0].weather[0].main == "Snow") {
+        src_gif = 'snow.gif'
+      } else if (data.list[0].weather[0].main == "Clear") {
+        src_gif = 'sun.gif'
+      }
+
+    for (i=0; i<rows_count/8; i+=1) {
+      if (data.list[i].weather[0].main == "Clouds") {
+        src_img = 'clouds.png'
+      } else if (data.list[i].weather[0].main == "Rain") {
+        src_img = 'rain.png'
+      } else if (data.list[i].weather[0].main == "Snow") {
+        src_img = 'snow.png'
+      } else if (data.list[i].weather[0].main == "Clear") {
+        src_img = 'sun.png'
+      } else {
+        src_img = 'lgbt_weather.png'
+      }
+
+      var rdr = document.createElement('td')
+      tbl.appendChild(rdr);
+      var tmp = document.createElement('tr')
+      var plusOrMinus = '+';
+      if (data.list[i].main.temp < 0) {
+        plusOrMinus = '-';
+      }
+      var text = document.createTextNode(plusOrMinus + (data.list[i].main.temp - 273.5).toFixed(2) +' °C')
+      var img = document.createElement('img')
+      img.src = src_img;
+
+      tmp.appendChild(text)
+      var dt = document.createElement('tr')
+      text = document.createTextNode(data.list[i].dt_txt)
+      dt.appendChild(text)
+
+      var dt1 = document.createElement('tr')
+      text = document.createTextNode(data.list[i].weather[0].description)
+      dt1.appendChild(text)
+
+      rdr.appendChild(img);
+      rdr.appendChild(dt);
+      rdr.appendChild(tmp);
+      rdr.appendChild(dt1);
+    }
+    console.log(data)
+
+    var urlik = "url("+src_gif+")"
+  console.log(urlik);
+  document.body.style.backgroundImage = urlik
+  
+  
+  document.body.style.backgroundSize = "100%"
+  });
+
+</script>
+</body>
+</html>
