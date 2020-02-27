@@ -1,0 +1,19 @@
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Тег LABEL</title>
+ </head>
+
+ <body>
+    <input type="text" name="kye" size="40" maxlength="40" value="" />
+        <button id="b">Додати</button>
+        <script>
+        function list(type) {
+            var parent = document.getElementsByTagName("ul")[0];
+            var li = document.createElement("li");
+            parent.appenChild(li) 
+        }
+        b.addEventListener('click', list, false);
+        </script>
+ </body>
+</html>
