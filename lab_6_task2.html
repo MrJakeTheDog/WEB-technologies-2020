@@ -8,10 +8,12 @@
     <p style="text-align: center"><button id="elem">After click - delete</button>
 
         <script>
-        elem.onclick = function(event) {
-            alert("Buy bitcoin!");
-            this.remove();
-          }
+        let importantButton = document.getElementById('elem');
+        function oneTimeUse() {
+          alert("Wash hands and don't buy bitcoin!!!");
+          importantButton.removeEventListener("click", oneTimeUse);
+        }
+        importantButton.addEventListener("click", oneTimeUse);
         </script>
  </body>
 </html>
